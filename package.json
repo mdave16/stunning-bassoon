@@ -5,7 +5,10 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "start": "sirv public",
-    "validate": "svelte-check"
+    "validate": "svelte-check",
+    "predeploy": "yarn gh-pages-clean & yarn build",
+    "deploy": "gh-pages -d public",
+    "upgrade-deps": "yarn upgrade --force -L --emoji"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^16.0.0",
