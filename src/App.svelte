@@ -1,9 +1,7 @@
-<style>
-	p {
-		color: purple;
-		font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
-			sans-serif;
-	}
-</style>
+<script lang="ts">
+	const string = 'This includes <strong>HTML</strong>';
+</script>
 
-<p>This is a paragraph</p>
+<p>
+	{@html string}
+</p>
