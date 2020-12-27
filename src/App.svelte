@@ -1,7 +1,13 @@
 <script lang="ts">
-	const string = 'This includes <strong>HTML</strong>';
+	let count = 0;
+
+	const handleClick = () => {
+		count++;
+	};
 </script>
 
-<p>
-	{@html string}
-</p>
+<button on:click={handleClick}>
+	Clicked
+	{count}
+	{count === 1 ? 'time' : 'times'}
+</button>
