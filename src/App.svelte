@@ -1,10 +1,11 @@
 <script lang="ts">
-	let user = { loggedIn: false };
-	const toggle = () => {
-		user.loggedIn = !user.loggedIn;
-	};
+	let x = 7;
 </script>
 
-{#if !user.loggedIn}
-	<button on:click={toggle}>Log in</button>
-{:else}<button on:click={toggle}>Log out</button>{/if}
+{#if x > 10}
+	<p>{x} is greater than 10</p>
+{:else if x > 5}
+	<p>{x} is greater than 5</p>
+{:else}
+	<p>{x} is less than or equal to 5</p>
+{/if}
