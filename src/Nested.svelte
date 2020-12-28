@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let answer;
+	export let answer = 'a mystery';
 </script>
 
 <p>The answer is {answer}</p>
