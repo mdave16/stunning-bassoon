@@ -1,11 +1,9 @@
-<script>
-	import Nested from './Nested.svelte';
-	const info = {
-		answer: 'working',
-		name: 'spread operator',
+<script lang="ts">
+	let user = { loggedIn: false };
+	const toggle = () => {
+		user.loggedIn = !user.loggedIn;
 	};
 </script>
 
-<Nested answer={423} />
-<Nested {...info} />
-<Nested {...info} anotherThing="secret extra info" />
+{#if !user.loggedIn}<button on:click={toggle}>Log in</button>{/if}
+{#if user.loggedIn}<button on:click={toggle}>Log out</button>{/if}
