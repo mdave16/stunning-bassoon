@@ -1,11 +1,18 @@
 <script lang="ts">
-	let x = 7;
+	let cats = [
+		{ id: 'J---aiyznGQ', name: 'Keyboard Cat' },
+		{ id: 'z_AbfPXTKms', name: 'Maru' },
+		{ id: 'OUtn3pvWmpg', name: 'Henri The Existential Cat' },
+	];
 </script>
 
-{#if x > 10}
-	<p>{x} is greater than 10</p>
-{:else if x > 5}
-	<p>{x} is greater than 5</p>
-{:else}
-	<p>{x} is less than or equal to 5</p>
-{/if}
+<h1>Famous Cats of Youtube</h1>
+{#each cats as { id, name }, i}
+	<li>
+		<a target="_blank" href="https://youtube.com/watch?v={id}">
+			{i + 1}:
+			{name}
+		</a>
+	</li>
+{/each}
+<ul />
