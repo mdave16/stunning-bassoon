@@ -1,16 +1,11 @@
 <script lang="ts">
-	let count = 0;
-	$: doubled = count * 2;
-	$: times = count === 1 ? 'time' : 'times';
-	$: if (count >= 10) {
-		console.log(`the count is ${count}`);
-		count = 9;
-	}
-
-	const handleClick = () => {
-		count++;
+	let numbers = [1];
+	let addNumber = () => {
+		numbers[numbers.length] = numbers.length + 1;
 	};
+
+	$: sum = numbers.reduce((t, n) => t + n, 0);
 </script>
 
-<button on:click={handleClick}> Clicked {count} {times} </button>
-<p>{count} doubled is {doubled}</p>
+<p>{numbers.join(' + ')} = {sum}</p>
+<button on:click={addNumber}> Add a number </button>
