@@ -1,22 +1,26 @@
 <script lang="ts">
-	import Thing from './Thing.svelte';
+	const getRandomNumber = async () => {
+		const res = await fetch('http://numbersapi.com/random');
+		const text = await res.text();
 
-	let things = [
-		{ id: 1, color: 'darkblue' },
-		{ id: 2, color: 'indigo' },
-		{ id: 3, color: 'deeppink' },
-		{ id: 4, color: 'salmon' },
-		{ id: 5, color: 'gold' },
-	];
+		if (res.ok) {
+			return text;
+		} else {
+			throw new Error(text);
+		}
+	};
 
+	let promise = getRandomNumber();
 	const handleClick = () => {
-		console.log(things);
-		things = things.slice(1);
-		console.log(things);
+		promise = getRandomNumber();
 	};
 </script>
 
-<button on:click={handleClick}>Remove first thing </button>
-{#each things as thing (thing.id)}
-	<Thing current={thing.color} />
-{/each}
+<button on:click={handleClick}>generate a random number fact</button>
+{#await promise}
+	<p>...waiting</p>
+{:then number}
+	<p>The number is {number}</p>
+{:catch error}
+	<p style="color: red">{error.message}</p>
+{/await}
