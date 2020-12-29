@@ -1,26 +1,17 @@
 <script lang="ts">
-	const getRandomNumber = async () => {
-		const res = await fetch('http://numbersapi.com/random');
-		const text = await res.text();
+	let m = { x: 0, y: 0 };
 
-		if (res.ok) {
-			return text;
-		} else {
-			throw new Error(text);
-		}
-	};
-
-	let promise = getRandomNumber();
-	const handleClick = () => {
-		promise = getRandomNumber();
+	const handleMouseMove = (event) => {
+		m.x = event.clientX;
+		m.y = event.clientY;
 	};
 </script>
 
-<button on:click={handleClick}>generate a random number fact</button>
-{#await promise}
-	<p>...waiting</p>
-{:then number}
-	<p>The number is {number}</p>
-{:catch error}
-	<p style="color: red">{error.message}</p>
-{/await}
+<style>
+	div {
+		width: 100%;
+		height: 100%;
+	}
+</style>
+
+<div on:mousemove={handleMouseMove}>The mouse position is {m.x}, {m.y}</div>
