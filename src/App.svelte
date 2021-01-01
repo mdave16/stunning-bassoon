@@ -1,7 +1,9 @@
 <script lang="ts">
-	const handleClick = () => {
-		console.log('clicked');
+	import Inner from './Inner.svelte';
+
+	const handleMessage = (e) => {
+		console.log(e.detail.text);
 	};
 </script>
 
-<button on:click|once={handleClick}> Click me </button>
+<Inner on:message|once={handleMessage} />
