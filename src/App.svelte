@@ -1,9 +1,9 @@
 <script lang="ts">
-	import Outer from './Outer.svelte';
+	import Inner from './Inner.svelte';
 
-	const handleMessage = (e) => {
-		console.log(e.detail.text);
+	const handleClick = () => {
+		console.log('clicked');
 	};
 </script>
 
-<Outer on:message={handleMessage} />
+<Inner on:click={handleClick} />
