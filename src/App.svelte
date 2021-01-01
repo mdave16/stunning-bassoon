@@ -1,13 +1,43 @@
 <script lang="ts">
-	let value = 'Some words are <em>italic</em> and some are <b>bold</b>';
+	let questions = [
+		{ id: 1, text: `Where did you go to school?` },
+		{ id: 2, text: `What is your mother's name?` },
+		{
+			id: 3,
+			text: `What is another personal fact that an attacker could easily find with Google?`,
+		},
+	];
+	let selected;
+
+	let answer = '';
+
+	const handleSubmit = () => {
+		console.log(
+			`answered question ${selected.id} (${selected.text}) with "${answer}"`
+		);
+	};
 </script>
 
 <style>
-	textarea {
-		width: 100%;
-		height: 200px;
+	input {
+		display: block;
+		width: 500px;
+		max-width: 100%;
 	}
 </style>
 
-<textarea bind:value />
-{@html value}
+<h2>Insecurity questions</h2>
+
+<form on:submit|preventDefault={handleSubmit}>
+	<select bind:value={selected} on:blur={() => (answer = '')}>
+		{#each questions as question}
+			<option value={question}>{question.text}</option>
+		{/each}
+	</select>
+
+	<input bind:value={answer} />
+
+	<button disabled={!answer} type="submit"> Submit </button>
+</form>
+
+<p>selected question {selected ? selected.id : '[waiting...]'}</p>
