@@ -1,9 +1,6 @@
 <script lang="ts">
-	import Inner from './Inner.svelte';
-
-	const handleClick = () => {
-		console.log('clicked');
-	};
+	let name = 'world';
 </script>
 
-<Inner on:click={handleClick} />
+<input bind:value={name} />
+<h1>Hello {name}!</h1>
