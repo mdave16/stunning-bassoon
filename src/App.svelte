@@ -1,15 +1,18 @@
 <script lang="ts">
-	let a = 1;
-	let b = 2;
+	let subscribed = false;
 </script>
 
 <label>
-	<input type="number" bind:value={a} min="0" max="10" />
-	<input type="range" bind:value={a} min="0" max="10" />
+	<input type="checkbox" bind:checked={subscribed} />
+	Yes! steal my data
 </label>
-<br />
-<label>
-	<input type="number" bind:value={b} min="0" max="10" />
-	<input type="range" bind:value={b} min="0" max="10" />
-</label>
-<h1>{a} + {b} = {a + b}</h1>
+
+<p>
+	{#if subscribed}
+		Thank you. We will sell your personal data.
+	{:else}
+		You must opt in to continue. If you are not paying, you are the product.
+	{/if}
+</p>
+
+<button disabled={!subscribed}> Subsrcribe </button>
