@@ -1,43 +1,28 @@
 {
-	"name": "svelte-app",
-	"version": "1.0.0",
+	"name": "reading-ease",
+	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"build": "rollup -c",
-		"dev": "rollup -c -w",
-		"start": "sirv public",
-		"validate": "svelte-check",
-		"predeploy": "yarn gh-pages-clean & yarn build",
-		"deploy": "gh-pages -d public",
-		"upgrade-deps": "yarn upgrade --force -L --emoji",
-		"format": "yarn prettier --write --loglevel=silent --plugin-search-dir=. . "
-	},
-	"pre-commit": {
-		"run": [
-			"format"
-		]
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"test": "vitest",
+		"lint": "prettier --check .",
+		"format": "prettier --write ."
 	},
 	"devDependencies": {
-		"@rollup/plugin-commonjs": "^17.0.0",
-		"@rollup/plugin-node-resolve": "^11.0.1",
-		"@rollup/plugin-typescript": "^8.1.0",
-		"@tsconfig/svelte": "^1.0.0",
-		"gh-pages": "^3.1.0",
-		"pre-commit": "^1.2.2",
-		"prettier": "^2.2.1",
-		"prettier-plugin-svelte": "^1.4.2",
-		"rollup": "^2.35.1",
-		"rollup-plugin-css-only": "^3.1.0",
-		"rollup-plugin-livereload": "^2.0.0",
-		"rollup-plugin-svelte": "^7.0.0",
-		"rollup-plugin-terser": "^7.0.0",
-		"svelte": "^3.0.0",
-		"svelte-check": "^1.0.0",
-		"svelte-preprocess": "^4.0.0",
-		"tslib": "^2.0.0",
-		"typescript": "^4.1.3"
+		"@sveltejs/adapter-auto": "^3.0.0",
+		"@sveltejs/kit": "^2.0.0",
+		"@sveltejs/vite-plugin-svelte": "^4.0.0-next.6",
+		"prettier": "^3.1.1",
+		"prettier-plugin-svelte": "^3.1.2",
+		"svelte": "^5.0.0-next.1",
+		"svelte-check": "^4.0.0",
+		"typescript": "^5.0.0",
+		"vite": "^5.0.3",
+		"vitest": "^2.0.0"
 	},
-	"dependencies": {
-		"sirv-cli": "^1.0.0"
-	}
+	"type": "module"
 }
