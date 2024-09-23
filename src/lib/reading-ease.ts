@@ -1,48 +1,50 @@
-export const gradeToReadingEase = (grade: number): number => {
-	return Math.min(100, Math.max(0, 100 - ((grade - 1) / 19) * 100));
+const gradeToReadingEase = (grade: number): number => {
+	const easy = 100;
+	const hard = 0;
+	const normalizedGrade = (grade - 1) / 19;
+	const ease = easy - normalizedGrade * (easy - hard);
+	return Math.min(easy, Math.max(hard, ease));
 };
 
-export const roundToNdp = (num: number, dp: number): number => {
+const roundToNdp = (num: number, dp: number): number => {
 	const factor = Math.pow(10, dp);
 	return Math.round((num + Number.EPSILON) * factor) / factor;
 };
 
+export const gradeToRoundedReadingEase = (grade: number): number => {
+	return roundToNdp(gradeToReadingEase(grade), 2);
+};
+
 export const wordsCount = (text: string) => {
-	if (text.trim() === '') return 0;
-	text = text.replaceAll(/\s+/g, ' ');
-	return text.split(' ').length;
+	const trimmed = text.trim();
+	if (trimmed === '') return 0;
+	const cleanedText = trimmed.replace(/\s+/g, ' ');
+	return cleanedText.split(' ').length;
 };
 export const sentencesCount = (text: string) => {
-	if (text.trim() === '') return 0;
+	const trimmed = text.trim();
+	if (trimmed === '') return 0;
 
-	const regex = /\b(Mr|Mrs|Ms|Dr|Prof)\.|(\b\w\.)+/g;
-
-	// Replace matched patterns
-	const cleanedText = text.replace(regex, (match, p1) => {
-		if (p1) {
-			// If it's a title, remove the dot
-			return p1;
-		} else {
-			// If it's a sequence of single characters separated by dots, remove all dots
-			return match.replace(/\./g, '');
-		}
+	const titleRegex = /\b(Mr|Mrs|Ms|Dr|Prof)\.|(\b\w\.)+/g;
+	const cleanedText = trimmed.replace(titleRegex, (match, p1) => {
+		return p1 ? p1 : match.replace(/\./g, '');
 	});
+
 	const sentenceRegex = /\S.*?(?:[.!?](?=\s|$)|$)/g;
 	const sentences = cleanedText.match(sentenceRegex);
-	return sentences ? sentences.length : 1;
+	return sentences ? sentences.length : 0;
 };
 export const charactersCount = (text: string) => {
-	return (text.match(/[a-zA-Z0-9]/g) || []).length;
+	return text.match(/\p{L}|[0-9]/gu)?.length || 0;
 };
 
 export const ariReadingEase = (text: string): number => {
 	const words = wordsCount(text);
 	const characters = charactersCount(text);
 	const sentences = sentencesCount(text);
-	let ari = 0;
-	if (words != 0 && sentences != 0) {
-		ari = 4.71 * (characters / words) + 0.5 * (words / sentences) - 21.43;
-	}
-	const readingEaseBounded = gradeToReadingEase(ari);
-	return roundToNdp(readingEaseBounded, 2);
+	if (words === 0 || sentences === 0) return gradeToRoundedReadingEase(1);
+
+	const ari = 4.71 * (characters / words) + 0.5 * (words / sentences) - 21.43;
+
+	return gradeToRoundedReadingEase(ari);
 };

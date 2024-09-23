@@ -31,6 +31,15 @@ describe('Text Analysis Functions', () => {
 		it('should handle special characters', () => {
 			expect(wordsCount('one@ !two')).toBe(2);
 		});
+		it('should return 0 for string with only spaces', () => {
+			expect(wordsCount('     ')).toBe(0);
+		});
+		it('should handle mixed case words', () => {
+			expect(wordsCount('One TWO')).toBe(2);
+		});
+		it('should handle non-ASCII characters', () => {
+			expect(wordsCount('café')).toBe(1);
+		});
 	});
 	describe('sentencesCount', () => {
 		it('should return 0 for empty string', () => {
@@ -69,6 +78,12 @@ describe('Text Analysis Functions', () => {
 		it('should handle sentences with parentheses', () => {
 			expect(sentencesCount('one (two).')).toBe(1);
 		});
+		it('should handle sentences with ellipses', () => {
+			expect(sentencesCount('Wait... what?')).toBe(2);
+		});
+		it('should handle sentences with nested punctuation', () => {
+			expect(sentencesCount('Hello (world)!')).toBe(1);
+		});
 	});
 	describe('charactersCount', () => {
 		it('should return 0 for empty string', () => {
@@ -86,8 +101,14 @@ describe('Text Analysis Functions', () => {
 		it('should ignore punctuation', () => {
 			expect(charactersCount('full @sentence')).toBe(12);
 		});
-		it('should ignore Unicode characters', () => {
+		it('should ignore emojis characters', () => {
 			expect(charactersCount('hey 🌍')).toBe(3);
+		});
+		it('should handle Unicode characters correctly', () => {
+			expect(charactersCount('café')).toBe(4);
+		});
+		it('should handle number correctly', () => {
+			expect(charactersCount('0123')).toBe(4);
 		});
 	});
 });
